@@ -1,0 +1,283 @@
+{% load static %}
+{% include "header.html" %}
+                                        
+     <body>  
+        {% include "admin_sidebar.html" %}  
+        {% include "navigation.html" %}      
+
+                <!-- PAGE CONTENT WRAPPER -->
+                <ul class="breadcrumb">
+                    <li><a href="#">Admin</a></li>
+                    <li><a href="#">Admin Masters</a></li>
+                    
+                </ul>
+                <div class="page-title">                    
+                    <h2><span class="fa fa-arrow-circle-o-left"></span> Employee Registration</h2>
+                </div>   
+                <div class="page-content-wrap">
+                
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="panel panel-default">
+                                
+                            <!-- START VALIDATIONENGINE PLUGIN -->
+                            <form method="POST" enctype="multipart/form-data">
+                                {% csrf_token %}
+                            <div class="panel-body">
+                            <div class="block">
+                                <div class="row">
+                                        
+                                  
+                                    <div class="col-md-6"> 
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">DOB</label>
+                                        <div class="col-md-9">
+                                            <input type="date" class="form-control datepicker" name="dob"  >
+                                            
+                                        </div>
+                                    </div> 
+                                    </div>       
+                                    <div class="col-md-6">            
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">Name</label>
+                                        <div class="col-md-9">
+                                            <input type="text" class="form-control"  name="ename">
+                                           
+                                        </div>
+                                    </div>  
+                                    </div>  
+                                    <div class="col-md-6">            
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label">Gender</label>
+                                            <div class="col-md-9">
+                                                <select  name="gender">
+                                                    <option value="0">Choose option</option>
+                                                    <option value="1">Male</option>
+                                                    <option value="2">Female</option>
+                                                   
+                                                </select>
+                                               
+                                            </div>
+                                        </div>  
+                                        </div> 
+                                    <div class="col-md-6">                          
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">Mobile</label>
+                                        <div class="col-md-9    ">
+                                            <input type="text" class="mask_phone_ext form-control" name="mobile" value="">
+                                                
+                                        </div>                        
+                                    </div>
+                                    </div>
+                                    <div class="col-md-6">  
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">E-mail:</label>
+                                        <div class="col-md-9">
+                                            <input type="text" value="" name="email" class="form-control">                                        
+                                            
+                                        </div>                   
+                                    </div>
+                                    </div>
+                                    <div class="col-md-6">  
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">Address</label>
+                                        <div class="col-md-9">
+                                            <textarea class="form-control"  name="address"rows="5"></textarea>
+                                        </div>
+                                    </div>
+                                    </div>
+                                  
+                                    <div class="col-md-6">  
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">Department</label>
+                                        <div class="col-md-9">
+                                            
+                                                <select id="formGender" class="validate[required] select" name="depid" >
+                                                    <option value="">Choose option</option>
+                                                    {% for dep in departmentlist %}
+                                                    <option value="{{dep.id}}">{{dep.depname}}</option>
+                                                  {% endfor %}
+                                                </select>
+                                           
+                                        </div>
+                                    </div> 
+                                    </div>
+                                    
+                                    <div class="col-md-6">  
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">Join Date</label>
+                                        <div class="col-md-9">
+                                            <input type="date" class="form-control datepicker" name="joindate">
+                                           
+                                        </div>
+                                    </div> 
+                                    </div>
+                                    <div class="col-md-6">  
+                                    <div class="input-group ">
+                                        <label class="col-md-3 control-label">Photo</label>
+                                        <div class="col-md-9">
+                                       
+                                    <input type="file" class="fileinput btn-primary" name="filename" id="filename" title="Browse file" style="left: -157.95px; top: 0.700012px;">
+                                     </div> 
+                                     </div>  
+                                     </div> 
+                                     <div class="col-md-8"> 
+                                        <div class="block" id="classdiv"  >
+                                            <h4> <strong> class  subject Division</strong></h4>
+                                            <div class="form-group">
+                                                <label class="col-md-1 control-label">Class</label>
+                                                <div class="col-md-2">
+                                                 
+                                                        <select id="classlist" class="validate[required] select" onchange="sublisting(this.value)">
+                                                            <option value="select">Choose option</option>
+                                                            {% for cls in classlist %}
+                                                            <option value="{{cls.id}}" >{{cls.clsname}}</option>{% endfor %}
+                                                           
+                                                        </select>
+                                                   <input type="text" value="{{request.scheme}}://{{request.get_host}}/sublist"  id="txtdelpath" hidden/>
+                                                </div>
+                                            </div>    <div class="form-group">
+                                                <label class="col-md-1 control-label">subject</label>
+                                                <div class="col-md-2">
+                                                    
+                                                        <select id="sublist" class="validate[required] select" >
+                                                            <option value="">Choose option</option>
+                                                           
+                                                        </select>
+                                                   
+                                                </div>
+                                            </div>  
+                                            <div class="form-group">
+                                                <label class="col-md-1 control-label">Division</label>
+                                                <div class="col-md-2">
+                                                    
+                                                        <select id="divlist" class="validate[required] select" >
+                                                            <option value="">Choose option</option>
+                                                            {% for  division in divlist %}
+                                                            <option value="{{division.id}}">{{division.divname}}</option>
+                                                            {% endfor %}
+                                                            
+                                                        </select>
+                                                   
+                                                </div>
+                                            </div> 
+                                            <div class="col-md-2">
+                                                <button class="btn btn-primary pull-right" type="button" onClick="addRow()">Add</button>
+            
+                                                </div>
+                                                <div class="form-group">
+                                                <div class="col-md-2">
+                                                <label  id="lblmsg" style="font-style: italic;color: rgba(230, 84, 11, 0.955) ;"></label>
+                                                </div>
+                                                </div>
+                                                <table class="table datatable_simple" id="mytbl">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>#</th>
+                                                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 238px;">class</th>
+                                                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 238px;">Subject</th>
+                                                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 238px;">Division</th>
+                                                           
+                                                            <th>Action</th>
+                                                           
+                                                           
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                     
+                                                 
+                                                       
+                                                        
+                                                      
+                                                    </tbody>
+                                                </table>
+                                            
+                                        <!-- END JQUERY VALIDATION PLUGIN -->
+                                        </div>
+                                        </div>
+                                     </div> 
+                                     <div class="panel-footer">
+                                        <button class="btn btn-default">Clear Form</button>                                    
+                                        <button class="btn btn-primary pull-right" type="submit" >Submit</button>
+                                    </div>                  
+                                       </div>
+                                       </div>                                                          
+                                </form>
+                                </div>
+                                                                       
+                            <!-- END VALIDATIONENGINE PLUGIN -->
+
+                        </div></div>
+                       
+                            </div>
+
+                        </div>
+                    </div>
+
+                    
+                        
+                </div>                 
+                    
+                </div>
+                <!-- END PAGE CONTENT WRAPPER -->                                                 
+            </div>            
+            <!-- END PAGE CONTENT -->
+        </div>
+        <!-- END PAGE CONTAINER -->
+
+       <!-- MESSAGE BOX-->
+       <!---<div class="noty_bar noty_type_alert" id="noty_374942878343827400">
+        <div class="noty_message" style="font-size: 11px; line-height: 14px; text-align: left; padding: 8px 10px 9px; width: auto; position: relative;">
+            <span class="noty_text">Do you want to continue?</span>
+        </div><div class="noty_buttons" style="padding: 5px; text-align: right; border-top: 0px; background-color: rgb(51, 51, 51);">
+            <button class="btn btn-success btn-clean" id="button-0" style="margin-left: 0px;">Ok</button>
+        <button class="btn btn-danger btn-clean" id="button-1" style="margin-left: 5px;">Cancel</button></div></div>--->
+       
+
+<!-- END MESSAGE BOX-->
+
+
+
+
+        <!-- BLUEIMP GALLERY -->
+        <div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-controls">
+            <div class="slides"></div>
+            <h3 class="title"></h3>
+            <a class="prev">‹</a>
+            <a class="next">›</a>
+            <a class="close">×</a>
+            <a class="play-pause"></a>
+            <ol class="indicator"></ol>
+        </div>      
+        <!-- END BLUEIMP GALLERY -->        
+        
+        <!-- START PRELOADS -->
+        <audio id="audio-alert" src="{% static 'audio/alert.mp3' %}" preload="auto"></audio>
+        <audio id="audio-fail" src="{% static 'audio/fail.mp3' %}" preload="auto"></audio>
+        <!-- END PRELOADS -->          
+        
+     
+
+        {% include "scripts.html" %}
+
+        
+        {% if message != "" %} 
+            <script>
+           
+            noty({text: '{{message}}', layout: 'topRight', type: '{{type}}', timeout:2000});
+            </script>
+        {% endif %}
+
+      
+   
+    </body>
+    <div class="noty_message"  id="notifydele" style="font-size: 11px; line-height: 14px; text-align: left; padding: 8px 10px 9px; width: auto; position: relative; color: green;">
+        <span class="noty_text"></span></div>
+
+        <!---delete items from row-->
+       
+       
+       
+    
+</html>
