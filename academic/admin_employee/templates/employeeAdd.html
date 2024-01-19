@@ -16,7 +16,6 @@
                 </div>   
                 <div class="page-content-wrap">
                 
-
                     <div class="row">
                         <div class="col-md-12">
                             <div class="panel panel-default">
@@ -183,6 +182,7 @@
                                                             <option value="{{cls.id}}" >{{cls.clsname}}</option>{% endfor %}
                                                            
                                                         </select>
+                                                        <input type="text" value="{{request.scheme}}://{{request.get_host}}/sublist"  id="txtpath" hidden/>
                                                    <input type="text" value="{{request.scheme}}://{{request.get_host}}/sublist"  id="txtdelpath" hidden/>
                                                 </div>
                                             </div>    <div class="form-group">

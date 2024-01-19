@@ -175,13 +175,28 @@ def deleteEmployee(request):
         obj=EmployeeRegistration.objects.get(id=empid)
         if obj.photo:
             os.remove(obj.photo.path)
+            os.remove(obj.barcode.path)
             obj.delete()
             return JsonResponse({'message': 'Data Deleted successfully'})
            
-    except Employee.DoesNotExist:
+    except EmployeeRegistration.DoesNotExist:
                     return JsonResponse({'message': 'employee  not found'}, status=404)
     except Exception as e:
         return JsonResponse({'message': f'Error: {str(e)}'}, status=500)
-def EditEmployee(request):
-     return render(request,'editemployee.html')
+    
+def EditEmployee(request,empid):
+    classlist = adminClass.objects.filter(status=1)
+    divisionlist = Division.objects.filter(status=1)     
+    qualificationlist = Qualification.objects.filter(status=1)
+    employee_teacherdetails=scd.objects.select_related('classid','divid','subid')
+
+    employee_details=EmployeeRegistration.objects.get(id=empid)
+    context={
+         'classlist':classlist,
+         'divisionlist':divisionlist,
+         'Qualificationlist':qualificationlist,
+         'employee_details':employee_details,
+         'employee_teacherdetails':employee_teacherdetails,
+    }
+    return render(request,'editemployee.html',context)
      

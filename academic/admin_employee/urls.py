@@ -10,7 +10,7 @@ urlpatterns = [
     path('sublist',views.sublist),
     path('viewEmployee',views.EmployeeView),
     path('DeleteEmployee',views.deleteEmployee),
-    path('Editemployee',views.EditEmployee,name='Editemployee')
+    path('Editemployee/<int:empid>',views.EditEmployee,name='Editemployee')
 ]
 
 if settings.DEBUG:  

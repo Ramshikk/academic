@@ -93,7 +93,11 @@
                                                     <button class="btn btn-primary btn-round">  <span class="glyphicon glyphicon-trash"   onClick="notyConfirm('{{employee.id}}')"></span></button>
                                                    
         
-                                                  <button class="btn btn-primary btn-round" onClick="" ><span  id="spinner" class="fa fa-pencil-square-o"   > </span></button> 
+                                                    <a class="btn btn-info btn-sm" href="{% url 'Editemployee' empid=employee.id  %}">
+                                                        <i class="fas fa-pencil-alt">
+                                                        </i>
+                                                        Edit
+                                                    </a> 
                                                   <button class="btn btn-primary btn-round" onClick="" ><span  id="spinner" class="fa fa-pencil-square-o"   > </span></button> 
                                                     
                                                 </td>
