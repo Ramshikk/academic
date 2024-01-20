@@ -588,6 +588,7 @@ def subjectClassedit(request):
             return JsonResponse({'error': 'class and subject not found for the given id'})
     except Exception as e:
         return JsonResponse({'error': str(e)})
+    
 
     
 

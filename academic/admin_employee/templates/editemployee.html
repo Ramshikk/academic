@@ -116,6 +116,8 @@
                                     <div class="col-md-6">  
                                     <div class="input-group ">
                                         <label class="col-md-3 control-label">Photo</label>
+                                        <input type="hidden" value="{{employee_details.photo}}" name="txtphoto">
+                                        <input type="hidden" value="{{employee_details.deptid.id}}" name="txtdeptid">
                                         <div class="col-md-9">{% if employee_details.photo %}
                                             <img src="{{employee_details.photo.url}}"class="img-text" width="100" align="left">{% else %}
                                             <img src="{% static 'img/noimg.png' %}" class="img-text" width="100" align="left">{% endif %}
@@ -239,72 +241,10 @@
        
 
 <!-- END MESSAGE BOX-->
-<script>
-    function EditpageaddRow(Classid,Subjectid,Divisionid,oldclass,oldsubject,olddivision) {
 
-       
-        var table = document.getElementById("mytbl").getElementsByTagName('tbody')[0];
 
-            // Creating a new row
-            var newRow = table.insertRow(table.rows.length);
+ 
     
-            var cell1 = newRow.insertCell(0);
-            cell1.innerHTML = table.rows.length;
-    
-            // Cell 2: Class
-            var cell2 = newRow.insertCell(1); 
-            
-            cell2.innerHTML = oldclass;
-            var textbox1 = document.createElement("input");
-            textbox1.type = "text";
-            textbox1.id = "txtclass";
-            textbox1.name = "txtclass";
-            textbox1.style.display = "none";
-            textbox1.value =Classid;
-            cell2.appendChild(textbox1);
-    
-            // Cell 3: Subject
-            var cell3 = newRow.insertCell(2);
-            cell3.innerHTML = oldsubject;
-            var textbox2 = document.createElement("input");
-            textbox2.type = "text";
-            textbox2.id = "txtsubject";
-            textbox2.name = "txtsubject";
-            textbox2.style.display = "none";
-            textbox2.value = Subjectid;
-            cell3.appendChild(textbox2);
-    
-            // Cell 4: Division
-            var cell4 = newRow.insertCell(3);
-            cell4.innerHTML=olddivision;
-            var textbox3 = document.createElement("input");
-            textbox3.type = "text";
-            textbox3.id = "txtdivision";
-            textbox3.name = "txtdivision";
-            textbox3.style.display = "none";
-            textbox3.value =Divisionid
-            cell4.appendChild(textbox3);
-    
-            // Cell 5: Action
-            var cell5 = newRow.insertCell(4);
-            var button = document.createElement("button");
-            button.innerHTML = '<span class="fa fa-times"></span>';
-            button.className = "btn btn-primary btn-round";
-            button.onclick = function() {
-                deleteRow(newRow);
-            };
-            cell5.appendChild(button);
-        }
-        
-
-        {%  for scditems in employee_teacherdetails  %}
-
-             EditpageaddRow('{{scditems.classid.id}}','{{scditems.subid.id}}','{{scditems.divid.id}}','{{scditems.classid.clsname}}','{{scditems.subid.subjectname}}','{{scditems.divid.divname}}');
-
-        {% endfor %}
-</script>
-
-
 
 <input type="text" value="{{request.scheme}}://{{request.get_host}}/sublist"  id="txtpath" hidden/>
         <!-- BLUEIMP GALLERY -->
@@ -343,7 +283,88 @@
 
         <!---delete items from row-->
        
-       
+        <script>
+            function EditpageaddRow(Classid,Subjectid,Divisionid,oldclass,oldsubject,olddivision) {
+        
+               
+                var table = document.getElementById("mytbl").getElementsByTagName('tbody')[0];
+        
+                    // Creating a new row
+                    var newRow = table.insertRow(table.rows.length);
+            
+                    var cell1 = newRow.insertCell(0);
+                    cell1.innerHTML = table.rows.length;
+            
+                    // Cell 2: Class
+                    var cell2 = newRow.insertCell(1); 
+                    
+                    cell2.innerHTML = oldclass;
+                    var textbox1 = document.createElement("input");
+                    textbox1.type = "text";
+                    textbox1.id = "txtclass";
+                    textbox1.name = "txtclass";
+                    textbox1.style.display = "none";
+                    textbox1.value =Classid;
+                    cell2.appendChild(textbox1);
+            
+                    // Cell 3: Subject
+                    var cell3 = newRow.insertCell(2);
+                    cell3.innerHTML = oldsubject;
+                    var textbox2 = document.createElement("input");
+                    textbox2.type = "text";
+                    textbox2.id = "txtsubject";
+                    textbox2.name = "txtsubject";
+                    textbox2.style.display = "none";
+                    textbox2.value = Subjectid;
+                    cell3.appendChild(textbox2);
+            
+                    // Cell 4: Division
+                    var cell4 = newRow.insertCell(3);
+                    cell4.innerHTML=olddivision;
+                    var textbox3 = document.createElement("input");
+                    textbox3.type = "text";
+                    textbox3.id = "txtdivision";
+                    textbox3.name = "txtdivision";
+                    textbox3.style.display = "none";
+                    textbox3.value =Divisionid
+                    cell4.appendChild(textbox3);
+            
+                    // Cell 5: Action
+                    var cell5 = newRow.insertCell(4);
+                    var button = document.createElement("button");
+                    button.innerHTML = '<span class="fa fa-times"></span>';
+                    button.className = "btn btn-primary btn-round";
+                    button.onclick = function() {
+                        deleteRow(newRow);
+                    };
+                    cell5.appendChild(button);
+                }
+                
+        
+                {%  for scditems in employee_teacherdetails  %}
+        
+                     EditpageaddRow('{{scditems.classid.id}}','{{scditems.subid.id}}','{{scditems.divid.id}}','{{scditems.classid.clsname}}','{{scditems.subid.subjectname}}','{{scditems.divid.divname}}');
+        
+                {% endfor %}
+               
+        function hidedivEdit(empid)
+        {
+          // alert(empid);
+           var teacherdata=$('#classdiv');
+        
+           if(empid == 2)
+               teacherdata.show();
+           else
+               teacherdata.hide();
+        }
+        {% if employee_area %}
+        {% for employee in employee_area  %}
+
+            hidedivEdit('{{employee.empcatid.emparea}}')
+            {% endfor %}
+        {% endif %}
+        </script>
+        
        
     
 </html>
